@@ -1,7 +1,7 @@
 // Laboratory work 1 on the discipline LOIS
 // Completed by student of group 721702 BSUIR Komar Alexander Nazarovich
 // Console UI for testing propositional logic language formula verifier
-// Version 1
+// Version 2. Tidy updates
 //
 // https://www.opennet.ru/base/dev/pcre_cpp.txt.html
 // https://eax.me/libpcre/
@@ -49,7 +49,8 @@ void check() {
     std::cout << "Enter a string to check\n";
     std::string str;
     std::cin >> str;
-    if (matchRegexp(DEFAULT_FORMULA_PATTERN, str.c_str(), str.length()))
+    bool isFormula = matchRegexp(DEFAULT_FORMULA_PATTERN, str.c_str(), str.length());
+    if (isFormula)
         std::cout << "String " + str + " is a formula\n";
     else
         std::cout << "String " + str + " is not a formula\n";
@@ -70,8 +71,9 @@ void test() {
 std::string generateTest() {
     int testLength = (int) rand() % MAX_LENGTH;
     std::string test;
+    int randomSignId = 0;
     for (int i = 0; i < testLength; i++) {
-        int randomSignId = rand() % VOCABULARY_LENGTH;
+        randomSignId = rand() % VOCABULARY_LENGTH;
         test += VOCABULARY[randomSignId];
     }
     return test;
